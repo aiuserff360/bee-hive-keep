@@ -1,0 +1,178 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-shell: #0b1a2c;
+  --color-shell-2: #10243b;
+  --color-shell-line: #1c3350;
+  --color-honey: #f7b928;
+  --color-honey-dark: #e0a20d;
+  --color-navy: #12233b;
+
+  --color-ok: #22c55e;
+  --color-warn: #f5b91f;
+  --color-crit: #ef4444;
+  --color-off: #9ca3af;
+  --color-info: #3b82f6;
+}
+
+/* Theme-dependent tokens: the Dashboard is dark, the hive pages are light. */
+@theme inline {
+  --color-page: var(--page);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-link: var(--link);
+  --color-ok-text: var(--ok-text);
+  --color-warn-text: var(--warn-text);
+  --color-crit-text: var(--crit-text);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn-soft: var(--warn-soft);
+  --color-crit-soft: var(--crit-soft);
+  --color-info-soft: var(--info-soft);
+  --color-tab: var(--tab);
+  --color-tab-active: var(--tab-active);
+  --color-tab-active-ink: var(--tab-active-ink);
+}
+
+.theme-light {
+  --page: #edf1f5;
+  --card: #ffffff;
+  --card-2: #f4f6f9;
+  --ink: #0f2137;
+  --ink-2: #33445a;
+  --muted: #617085;
+  --line: #e2e7ee;
+  --link: #1763c6;
+  --ok-text: #15803d;
+  --warn-text: #a16207;
+  --crit-text: #b91c1c;
+  --ok-soft: #dcfce7;
+  --warn-soft: #fef3c7;
+  --crit-soft: #fee2e2;
+  --info-soft: #dbeafe;
+  --tab: #eef1f5;
+  --tab-active: #12233b;
+  --tab-active-ink: #ffffff;
+  color-scheme: light;
+}
+
+.theme-dark {
+  --page: #0a1626;
+  --card: #0f2136;
+  --card-2: #142b45;
+  --ink: #f1f5f9;
+  --ink-2: #cfd9e5;
+  --muted: #8fa3bb;
+  --line: #1e3552;
+  --link: #6db3ff;
+  --ok-text: #4ade80;
+  --warn-text: #fbbf24;
+  --crit-text: #f87171;
+  --ok-soft: #12351f;
+  --warn-soft: #3a2e0c;
+  --crit-soft: #3d1618;
+  --info-soft: #12294d;
+  --tab: #142b45;
+  --tab-active: #1d4f8f;
+  --tab-active-ink: #ffffff;
+  color-scheme: dark;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-shell);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+  }
+
+  button:not(:disabled),
+  select,
+  a {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-honey);
+    outline-offset: 2px;
+  }
+}
+
+/* Thin scrollbars inside the app shell */
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(120 140 165 / 0.45) transparent;
+}
+
+/* Leaflet overrides so the map sits inside our cards */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: #0d1b14;
+  z-index: 0;
+}
+.hive-pin {
+  background: none;
+  border: none;
+}
+.hive-pin-inner svg {
+  flex-shrink: 0;
+}
+.hive-pin-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  white-space: nowrap;
+}
+.hive-pin-label {
+  margin-top: 2px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: rgb(9 20 34 / 0.82);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.25;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.4);
+}
+.hive-pin-label span {
+  display: block;
+  font-weight: 500;
+  color: #f7b928;
+}
+.hive-pin.is-selected .hive-pin-label {
+  background: #f7b928;
+  color: #0b1a2c;
+}
+.hive-pin.is-selected .hive-pin-label span {
+  color: #0b1a2c;
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.live-dot {
+  animation: live-pulse 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-dot {
+    animation: none;
+  }
+}
