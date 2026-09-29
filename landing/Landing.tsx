@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
 import {
+  ArrowDown,
   ArrowRight,
-  ArrowUpRight,
   AudioLines,
   BatteryFull,
   BellRing,
@@ -39,13 +39,11 @@ import screenHoney from './assets/screen-honey.jpg'
 import screenTasks from './assets/screen-tasks.jpg'
 
 /**
- * Address that trial requests are sent to.
+ * Address that demo requests are sent to.
  * PLACEHOLDER: replace with the real sales or support mailbox before sharing this page with customers.
  */
-const CONTACT_EMAIL = 'trial@beehivekeep.example'
+const CONTACT_EMAIL = 'hello@beehivekeep.example'
 
-/** The product demo is published one level above this page. */
-const DEMO_URL = '../'
 const photo = (name: string) => `../images/${name}`
 
 const cx = (...parts: Array<string | false | undefined>) => parts.filter(Boolean).join(' ')
@@ -129,11 +127,8 @@ function Nav() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-1.5 sm:gap-2.5 lg:ml-0">
-          <a href={DEMO_URL} className="hidden items-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-medium text-slate-100 ring-1 ring-white/20 transition hover:bg-white/10 sm:inline-flex">
-            Live demo <ArrowUpRight size={15} />
-          </a>
           <a href="#contact" className="rounded-lg bg-honey px-3 py-2 text-[13px] font-semibold whitespace-nowrap text-shell transition hover:bg-[#ffc94a] sm:px-4 sm:text-sm">
-            Request a trial
+            Request a demo
           </a>
           <button onClick={() => setOpen((v) => !v)} aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} className="rounded-lg p-2 hover:bg-white/10 lg:hidden">
             {open ? <X size={22} /> : <Menu size={22} />}
@@ -142,7 +137,7 @@ function Nav() {
       </div>
       {open && (
         <nav aria-label="Page sections" className="border-t border-white/10 px-5 py-3 lg:hidden">
-          {[...LINKS, { href: DEMO_URL, label: 'Live demo' }].map((l) => (
+          {LINKS.map((l) => (
             <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-2.5 text-[15px] text-slate-100 hover:bg-white/10">
               {l.label}
             </a>
@@ -180,13 +175,12 @@ function Hero() {
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3.5">
             <PrimaryLink href="#contact">
-              Request a trial <ArrowRight size={18} />
+              Request a demo <ArrowRight size={18} />
             </PrimaryLink>
-            <a href={DEMO_URL} className="inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-[15px] font-semibold text-white ring-1 ring-white/25 transition hover:bg-white/10">
-              <Eye size={18} /> Explore the live demo
+            <a href="#how" className="inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-[15px] font-semibold text-white ring-1 ring-white/25 transition hover:bg-white/10">
+              See how it works <ArrowDown size={18} />
             </a>
           </div>
-          <p className="mt-4 text-xs text-slate-400">The demo opens in your browser. Nothing to install, no sign-up.</p>
         </Reveal>
 
         <Reveal delay={150} className="relative mx-auto mt-14 max-w-5xl pb-16 sm:mt-20 sm:pb-24">
@@ -226,7 +220,7 @@ function Hero() {
               ))}
             </dl>
           </div>
-          <p className="mt-4 text-xs text-slate-500">Screens show sample data from the demo network.</p>
+          <p className="mt-4 text-xs text-slate-500">Screens show sample data.</p>
         </Reveal>
       </div>
     </section>
@@ -540,12 +534,12 @@ function Mission() {
 /* ---------- FAQ ---------- */
 
 const FAQ = [
-  { q: 'Can I look at the product before I talk to anyone?', a: 'Yes. The live demo is open to everyone and runs in your browser. It shows every screen of the command center.' },
-  { q: 'Is the data in the demo real?', a: 'No. The demo uses a sample network of 248 hives in 12 locations, so that you can explore every screen. Your own trial uses data from your hives.' },
+  { q: 'What will I see in a demo?', a: 'We walk your team through the command center: the map, a single hive in detail, alerts, field tasks and honey production.' },
+  { q: 'Are the screens on this page real?', a: 'Yes, they are taken from the product. The figures in them are sample data.' },
   { q: 'What does each hive report?', a: 'Brood temperature, humidity, hive weight, sound and vibration, and bee activity at the entrance. Each sensor unit also reports its battery level and connection.' },
   { q: 'Does it work on a phone?', a: 'Yes. The command center adapts to phones, tablets and desktop screens, so keepers can use it at the hive.' },
   { q: 'Can I take my data out?', a: 'Yes. Hive, honey, alert and keeper data can be downloaded as spreadsheet files from the Reports page.' },
-  { q: 'How do I start a trial?', a: 'Send the form below. We will reply to agree the hives, the locations and the timing of the trial with you.' },
+  { q: 'How do I get a demo?', a: 'Send the form below. We will reply by email to agree a time with you.' },
 ]
 
 function Faq() {
@@ -597,8 +591,8 @@ function Label({ text, optional, children }: { text: string; optional?: boolean;
 }
 
 const PROMISES: Array<{ icon: ReactNode; title: string; body: ReactNode }> = [
-  { icon: <CalendarCheck size={20} />, title: 'A trial planned with you', body: 'We agree the hives, the locations and the timing together.' },
-  { icon: <Eye size={20} />, title: 'See it first', body: 'The live demo is open now, with every screen of the product.' },
+  { icon: <CalendarCheck size={20} />, title: 'A time that suits you', body: 'We reply by email to agree when to meet.' },
+  { icon: <Eye size={20} />, title: 'Shaped around your apiary', body: 'Tell us about your hives and we will show what matters to you.' },
   {
     icon: <Mail size={20} />,
     title: 'Prefer email?',
@@ -625,9 +619,9 @@ function Contact() {
       `Number of hives: ${get('hives')}`,
       `Location: ${get('location') || '-'}`,
       '',
-      get('message') || 'I would like to try Bee Hive Keep.',
+      get('message') || 'I would like a demo of Bee Hive Keep.',
     ]
-    const link = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Trial request: ${get('organisation') || get('name')}`)}&body=${encodeURIComponent(lines.join('\n'))}`
+    const link = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Demo request: ${get('organisation') || get('name')}`)}&body=${encodeURIComponent(lines.join('\n'))}`
     setSent(link)
     window.location.href = link
   }
@@ -638,11 +632,11 @@ function Contact() {
       <div className="comb pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
         <Reveal>
-          <Eyebrow dark>Contact for trial</Eyebrow>
+          <Eyebrow dark>Request a demo</Eyebrow>
           <h2 className="mt-3 text-4xl leading-[1.05] font-extrabold tracking-tight text-balance sm:text-6xl">
-            Start with <span className="honey-text">a trial.</span>
+            See it <span className="honey-text">for yourself.</span>
           </h2>
-          <p className="mt-5 max-w-md text-lg leading-relaxed text-slate-300">Tell us about your hives. We will reply to plan a trial that fits your apiary.</p>
+          <p className="mt-5 max-w-md text-lg leading-relaxed text-slate-300">Tell us about your hives. We will reply to arrange a demo for your team.</p>
           <ul className="mt-8 space-y-4">
             {PROMISES.map((p) => (
               <li key={p.title} className="flex items-start gap-4">
@@ -678,7 +672,7 @@ function Contact() {
               </div>
             ) : (
               <form onSubmit={submit} className="space-y-4">
-                <h3 className="text-xl font-bold">Request a trial</h3>
+                <h3 className="text-xl font-bold">Request a demo</h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Label text="Your name">
                     <input name="name" required autoComplete="name" className={field} placeholder="Full name" />
@@ -711,7 +705,7 @@ function Contact() {
                   <textarea name="message" rows={3} className={field} placeholder="For example: fewer colony losses, better harvest planning" />
                 </Label>
                 <button type="submit" className="flex w-full items-center justify-center gap-2 rounded-xl bg-honey px-6 py-4 text-base font-semibold text-shell transition hover:bg-[#ffc94a]">
-                  Request a trial <ArrowRight size={18} />
+                  Request a demo <ArrowRight size={18} />
                 </button>
                 <p className="text-center text-xs text-slate-400">This opens your email app with the request filled in. We use your details only to reply to you.</p>
               </form>
@@ -725,6 +719,15 @@ function Contact() {
 
 /* ---------- Footer ---------- */
 
+/** Photos that appear on this page, directly or inside a product screenshot. */
+const PHOTO_CREDITS = [
+  { title: 'Field of sunflowers', author: 'BenAveling', licence: 'CC BY-SA 3.0', licenceUrl: 'https://creativecommons.org/licenses/by-sa/3.0/', source: 'https://commons.wikimedia.org/wiki/File:Field_of_sunflowers.JPG', where: 'Shown in "Our purpose".' },
+  { title: 'Morača Kloster - Bienenstöcke 1', author: 'Wolfgang Sauber', licence: 'CC BY-SA 4.0', licenceUrl: 'https://creativecommons.org/licenses/by-sa/4.0', source: 'https://commons.wikimedia.org/wiki/File:Mora%C4%8Da_Kloster_-_Bienenst%C3%B6cke_1.jpg', where: 'Shown in the dashboard screenshots.' },
+  { title: 'Bees at the hive entrance', author: 'shawn caza', licence: 'CC BY-SA 4.0', licenceUrl: 'https://creativecommons.org/licenses/by-sa/4.0', source: 'https://commons.wikimedia.org/wiki/File:Bees_at_the_hive_entrance.JPG', where: 'Shown in the dashboard screenshot.' },
+  { title: 'Abeille (Apis mellifera) sur un pissenlit', author: 'Gzen92', licence: 'CC BY-SA 4.0', licenceUrl: 'https://creativecommons.org/licenses/by-sa/4.0', source: 'https://commons.wikimedia.org/wiki/File:Abeille_%28Apis_mellifera%29_sur_un_pissenlit_%28Taraxacum%29_%282_dioptries%29.jpg', where: 'Shown in the dashboard screenshot.' },
+  { title: 'Capped worker brood', author: 'Einebillion', licence: 'CC BY 4.0', licenceUrl: 'https://creativecommons.org/licenses/by/4.0', source: 'https://commons.wikimedia.org/wiki/File:Capped_worker_brood.jpg', where: 'Shown in the brood analysis screenshot.' },
+]
+
 function Footer() {
   return (
     <footer className="border-t border-white/10 bg-[#081423] py-10 text-sm text-slate-400">
@@ -737,17 +740,31 @@ function Footer() {
         </a>
         <p>Smart Hives. Healthier Bees. A Brighter Tomorrow.</p>
         <nav aria-label="Footer" className="ml-auto flex flex-wrap gap-x-6 gap-y-2">
-          <a href={DEMO_URL} className="hover:text-white">
-            Live demo
-          </a>
           <a href="#contact" className="hover:text-white">
-            Request a trial
-          </a>
-          <a href="https://github.com/aiuserff360/bee-hive-keep/blob/main/CREDITS.md" target="_blank" rel="noreferrer" className="hover:text-white">
-            Photo credits
+            Request a demo
           </a>
         </nav>
-        <p className="w-full border-t border-white/10 pt-5 text-xs">© 2026 Bee Hive Keep. Screens on this page show sample data.</p>
+        <div className="w-full border-t border-white/10 pt-5 text-xs">
+          <p>© 2026 Bee Hive Keep. Screens on this page show sample data.</p>
+          <details className="mt-2">
+            <summary className="inline-block underline decoration-white/20 underline-offset-4 hover:text-white">Photo credits</summary>
+            <ul className="mt-2 space-y-1 leading-relaxed">
+              {PHOTO_CREDITS.map((c) => (
+                <li key={c.title}>
+                  <a href={c.source} target="_blank" rel="noreferrer" className="underline decoration-white/20 underline-offset-2 hover:text-white">
+                    {c.title}
+                  </a>{' '}
+                  by {c.author},{' '}
+                  <a href={c.licenceUrl} target="_blank" rel="noreferrer" className="underline decoration-white/20 underline-offset-2 hover:text-white">
+                    {c.licence}
+                  </a>
+                  . {c.where}
+                </li>
+              ))}
+              <li>Photos from Wikimedia Commons, resized. Map imagery by Esri, Maxar and Earthstar Geographics.</li>
+            </ul>
+          </details>
+        </div>
       </div>
     </footer>
   )
@@ -757,7 +774,7 @@ export default function Landing() {
   return (
     <>
       <a href="#contact" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-lg focus:bg-honey focus:px-4 focus:py-2 focus:text-shell">
-        Skip to the trial form
+        Skip to the demo request form
       </a>
       <Nav />
       <main>

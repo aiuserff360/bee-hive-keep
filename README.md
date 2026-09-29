@@ -35,8 +35,9 @@ The customer-facing landing page lives in the `landing/` folder and is built tog
 
 - `landing/Landing.tsx` holds all the text and sections.
 - `landing/assets/` holds the product screenshots shown on the page.
-- **Before sharing the page with customers, set the real contact address.** Change `CONTACT_EMAIL` at the top of `landing/Landing.tsx`. It is a placeholder (`trial@beehivekeep.example`) until then.
-- The trial form has no server behind it. It opens the visitor's email app with the request filled in.
+- **Before sharing the page with customers, set the real contact address.** Change `CONTACT_EMAIL` at the top of `landing/Landing.tsx`. It is a placeholder (`hello@beehivekeep.example`) until then.
+- The "Request a demo" form has no server behind it. It opens the visitor's email app with the request filled in.
+- The landing page does not link to the product demo. The two are kept separate on purpose.
 
 ## Things to know
 

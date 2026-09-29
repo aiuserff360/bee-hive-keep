@@ -260,9 +260,6 @@ function Footer() {
       <a href="https://github.com/aiuserff360/bee-hive-keep/blob/main/CREDITS.md" target="_blank" rel="noreferrer" className="underline decoration-shell-line underline-offset-2 hover:text-white">
         Photo credits
       </a>
-      <a href="landing/" className="hidden underline decoration-shell-line underline-offset-2 hover:text-white sm:inline">
-        Product website
-      </a>
       <span className="ml-auto hidden items-center gap-3 md:flex">
         <Leaf size={14} className="text-ok" fill="currentColor" />
         Healthy Bees <span className="text-shell-line">|</span> Thriving Communities <span className="text-shell-line">|</span> A More Sustainable Future
