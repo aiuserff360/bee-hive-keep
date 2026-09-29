@@ -2,7 +2,10 @@
 
 Clickable prototype of the Bee Hive Keep dashboard: a monitoring console for a network of smart beehives.
 
-**Live site:** https://aiuserff360.github.io/bee-hive-keep/
+| | Address |
+|---|---|
+| **Product demo** | https://aiuserff360.github.io/bee-hive-keep/ |
+| **Public website** (landing page) | https://aiuserff360.github.io/bee-hive-keep/landing/ |
 
 ## What is in the prototype
 
@@ -25,6 +28,15 @@ Clickable prototype of the Bee Hive Keep dashboard: a monitoring console for a n
 Every one of the 248 hives opens its own detail page with nine tabs: Overview, Live Data, Brood & Colony Health, Honey Production, Environment, Activity & Tasks, History, AI Insights and Notes.
 
 Six screens follow the original design mockups (Dashboard, Hives list, and the Overview, Brood, Honey and Activity tabs). The others were designed to match them.
+
+## Public website
+
+The customer-facing landing page lives in the `landing/` folder and is built together with the product.
+
+- `landing/Landing.tsx` holds all the text and sections.
+- `landing/assets/` holds the product screenshots shown on the page.
+- **Before sharing the page with customers, set the real contact address.** Change `CONTACT_EMAIL` at the top of `landing/Landing.tsx`. It is a placeholder (`trial@beehivekeep.example`) until then.
+- The trial form has no server behind it. It opens the visitor's email app with the request filled in.
 
 ## Things to know
 
