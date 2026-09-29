@@ -71,6 +71,15 @@ export const INITIAL_TASKS: Task[] = [
   { id: 't4', title: 'Add super (if needed)', due: '2026-10-12', priority: 'Medium', assignee: 'Field Team', state: 'Not Started', hiveId: 'BGL-042' },
   { id: 't5', title: 'Queen health check', due: '2026-10-20', priority: 'Medium', assignee: 'Ravi Kumar', state: 'Not Started', hiveId: 'BGL-042' },
   { id: 't6', title: 'Prepare for winter (ventilation)', due: '2026-11-01', priority: 'Low', assignee: 'Field Team', state: 'Not Started', hiveId: 'BGL-042' },
+  { id: 't7', title: 'Emergency inspection (low weight)', due: '2026-09-22', priority: 'High', assignee: 'Savitha Kumari', state: 'Pending', hiveId: 'MND-011' },
+  { id: 't8', title: 'Replace sensor battery', due: '2026-09-23', priority: 'High', assignee: 'Field Team', state: 'Pending', hiveId: 'MND-011' },
+  { id: 't9', title: 'Swarm check and add space', due: '2026-09-24', priority: 'High', assignee: 'Shobha Patil', state: 'Pending', hiveId: 'TMR-007' },
+  { id: 't10', title: 'Shade hive and improve ventilation', due: '2026-09-24', priority: 'Medium', assignee: 'Padma Naidu', state: 'Not Started', hiveId: 'KLR-018' },
+  { id: 't11', title: 'Reconnect offline sensor unit', due: '2026-09-25', priority: 'Medium', assignee: 'Field Team', state: 'Not Started', hiveId: 'MYR-013' },
+  { id: 't12', title: 'Feed colony (sugar syrup)', due: '2026-09-25', priority: 'High', assignee: 'Sharada Hegde', state: 'Not Started', hiveId: 'SHR-026' },
+  { id: 't13', title: 'Routine check', due: '2026-09-26', priority: 'Low', assignee: 'Prakash Gowda', state: 'Not Started', hiveId: 'HSN-021' },
+  { id: 't14', title: 'Harvest honey frames', due: '2026-09-19', priority: 'Medium', assignee: 'Jayamma K', state: 'Done', hiveId: 'CJB-005' },
+  { id: 't15', title: 'Varroa treatment follow-up', due: '2026-09-16', priority: 'Medium', assignee: 'Field Team', state: 'Done', hiveId: 'KLR-018' },
 ]
 
 export interface FieldOp {

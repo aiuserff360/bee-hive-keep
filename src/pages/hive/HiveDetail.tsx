@@ -13,6 +13,7 @@ import { useStore } from '../../store'
 import Activity from './Activity'
 import Brood from './Brood'
 import Honey from './Honey'
+import { Environment, History, HiveInsights, LiveData, Notes } from './MoreTabs'
 import Overview from './Overview'
 
 export interface TabProps {
@@ -25,7 +26,7 @@ export interface TabProps {
 function HeadStat({ icon, label, children, className }: { icon?: ReactNode; label: string; children: ReactNode; className?: string }) {
   return (
     <div className={cx('flex min-w-0 items-center gap-2.5 rounded-lg border border-line px-2.5 py-2.5', className)}>
-      {icon && <span className="shrink-0 self-start pt-1">{icon}</span>}
+      {icon && <span className="shrink-0">{icon}</span>}
       <div className="min-w-0">
         <div className="text-[11px] leading-tight text-ink-2">{label}</div>
         {children}
@@ -216,7 +217,7 @@ export default function HiveDetail() {
 
       <section className="flex flex-col gap-4 rounded-xl border border-line bg-card p-2.5 xl:flex-row xl:items-stretch">
         <div className="flex min-w-0 shrink-0 gap-4">
-          <div className="relative shrink-0">
+          <div className="relative shrink-0 self-start">
             <img src={hive.image} alt={`Hive ${hive.id}`} className="h-[118px] w-[140px] rounded-lg object-cover sm:w-[200px]" />
             <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 rounded bg-black/55 px-2 text-lg font-bold text-white">{hive.number}</span>
           </div>
@@ -276,7 +277,11 @@ export default function HiveDetail() {
       {slug === 'brood' && <Brood {...props} />}
       {slug === 'honey' && <Honey {...props} />}
       {slug === 'activity' && <Activity {...props} />}
-      {!['overview', 'brood', 'honey', 'activity'].includes(slug) && <ComingSoon embedded title={current.label} />}
+      {slug === 'live-data' && <LiveData {...props} />}
+      {slug === 'environment' && <Environment {...props} />}
+      {slug === 'history' && <History {...props} />}
+      {slug === 'ai-insights' && <HiveInsights {...props} />}
+      {slug === 'notes' && <Notes {...props} />}
     </div>
   )
 }

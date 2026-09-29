@@ -299,3 +299,91 @@ export function Toast({ message }: { message: string | null }) {
     </div>
   )
 }
+
+/* ---------- Page building blocks ---------- */
+
+export function PageHeader({ title, subtitle, children }: { title: string; subtitle: string; children?: ReactNode }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <h1 className="text-[28px] leading-none font-bold text-ink">{title}</h1>
+      <p className="mr-auto text-sm text-ink-2">{subtitle}</p>
+      {children}
+    </div>
+  )
+}
+
+export function Pills<T extends string>({ options, value, onChange, label }: { options: Array<{ id: T; label: string; count?: number }>; value: T; onChange: (id: T) => void; label: string }) {
+  return (
+    <div role="group" aria-label={label} className="flex flex-wrap gap-2">
+      {options.map((o) => (
+        <button
+          key={o.id}
+          onClick={() => onChange(o.id)}
+          aria-pressed={value === o.id}
+          className={cx('rounded-lg px-3.5 py-2 text-xs font-medium', value === o.id ? 'bg-tab-active text-tab-active-ink' : 'bg-card text-ink-2 ring-1 ring-line hover:ring-muted')}
+        >
+          {o.label}
+          {o.count !== undefined && ` (${o.count})`}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+export function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (value: boolean) => void; label: string }) {
+  return (
+    <button
+      role="switch"
+      aria-checked={checked}
+      aria-label={label}
+      onClick={() => onChange(!checked)}
+      className={cx('relative h-6 w-11 shrink-0 rounded-full transition-colors', checked ? 'bg-ok' : 'bg-off')}
+    >
+      <span className={cx('absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform', checked && 'translate-x-5')} />
+    </button>
+  )
+}
+
+export function Avatar({ name, tone = 'plain', size = 36 }: { name: string; tone?: 'plain' | 'honey'; size?: number }) {
+  const initials = name
+    .split(' ')
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join('')
+  return (
+    <span className={cx('grid shrink-0 place-items-center rounded-full font-bold', tone === 'honey' ? 'bg-honey/25 text-honey-dark' : 'bg-card-2 text-ink')} style={{ width: size, height: size, fontSize: size * 0.34 }}>
+      {initials}
+    </span>
+  )
+}
+
+/** Ranked horizontal bars: one row per item, value at the end. */
+export function BarList({ items, color, unit = '', max }: { items: Array<{ label: string; value: number; note?: string; color?: string }>; color: string; unit?: string; max?: number }) {
+  const top = max ?? Math.max(...items.map((i) => i.value), 1)
+  return (
+    <ul className="space-y-2.5">
+      {items.map((item) => (
+        <li key={item.label} className="grid grid-cols-[minmax(0,118px)_minmax(0,1fr)_auto] items-center gap-2.5 text-xs" title={`${item.label}: ${item.value}${unit}`}>
+          <span className="truncate text-ink">{item.label}</span>
+          <span className="h-3 overflow-hidden rounded-r-[4px] bg-card-2">
+            <span className="block h-full rounded-r-[4px]" style={{ width: `${Math.max(2, (item.value / top) * 100)}%`, background: item.color ?? color }} />
+          </span>
+          <span className="min-w-[52px] text-right font-semibold text-ink tabular-nums">
+            {item.value.toLocaleString()}
+            {unit}
+            {item.note && <span className="ml-1 font-normal text-muted">{item.note}</span>}
+          </span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/** Plain data table with the prototype's standard look. */
+export function Th({ children, className }: { children?: ReactNode; className?: string }) {
+  return <th className={cx('px-3 py-2.5 text-left font-medium whitespace-nowrap', className)}>{children}</th>
+}
+
+export function Td({ children, className }: { children?: ReactNode; className?: string }) {
+  return <td className={cx('px-3 py-2.5 text-ink', className)}>{children}</td>
+}

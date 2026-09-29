@@ -2,23 +2,19 @@ import { Route, Routes } from 'react-router-dom'
 import { ComingSoon } from './components/blocks'
 import HiveMap from './components/HiveMap'
 import Shell from './components/Shell'
+import AiInsights from './pages/AiInsights'
+import Alerts from './pages/Alerts'
 import Dashboard from './pages/Dashboard'
+import HealthSensors from './pages/HealthSensors'
 import HiveDetail from './pages/hive/HiveDetail'
 import HivesList from './pages/HivesList'
+import HoneyProduction from './pages/HoneyProduction'
+import People from './pages/People'
+import Reports from './pages/Reports'
+import Settings from './pages/Settings'
+import Sustainability from './pages/Sustainability'
+import Tasks from './pages/Tasks'
 import { StoreProvider } from './store'
-
-// Sidebar entries that have no design yet.
-const PLACEHOLDERS: Array<[string, string]> = [
-  ['health-sensors', 'Health & Sensors'],
-  ['ai-insights', 'AI Insights'],
-  ['alerts', 'Alerts'],
-  ['honey-production', 'Honey Production'],
-  ['tasks', 'Tasks & Field Ops'],
-  ['people', 'People & Communities'],
-  ['reports', 'Reports'],
-  ['sustainability', 'Sustainability'],
-  ['settings', 'Settings'],
-]
 
 export default function App() {
   return (
@@ -38,9 +34,15 @@ export default function App() {
           <Route path="hives" element={<HivesList />} />
           <Route path="hives/:id" element={<HiveDetail />} />
           <Route path="hives/:id/:tab" element={<HiveDetail />} />
-          {PLACEHOLDERS.map(([path, title]) => (
-            <Route key={path} path={path} element={<ComingSoon title={title} />} />
-          ))}
+          <Route path="health-sensors" element={<HealthSensors />} />
+          <Route path="ai-insights" element={<AiInsights />} />
+          <Route path="alerts" element={<Alerts />} />
+          <Route path="honey-production" element={<HoneyProduction />} />
+          <Route path="tasks" element={<Tasks />} />
+          <Route path="people" element={<People />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="sustainability" element={<Sustainability />} />
+          <Route path="settings" element={<Settings />} />
           <Route path="*" element={<ComingSoon title="Page not found" note="The page you are looking for does not exist." />} />
         </Route>
       </Routes>

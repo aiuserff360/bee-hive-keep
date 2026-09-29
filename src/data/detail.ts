@@ -2,11 +2,30 @@
 // every other hive is derived from its health so that its pages stay plausible.
 
 import { HARVESTS } from './content'
-import { NOW, seedOf } from './hives'
+import { HIVES, LOCATIONS, NOW, seedOf } from './hives'
 import type { Hive } from './hives'
 
 const REFERENCE_MONTHLY = [1.2, 2.8, 3.6, 4.1, 4.3, 2.4]
+const REFERENCE_TOTAL = 18.4
 const round1 = (n: number) => Math.round(n * 10) / 10
+
+/**
+ * Season honey per hive. Each location's published yield is shared out among its hives,
+ * weighted by health, so hive pages, keeper totals and location totals all agree.
+ */
+const HONEY_TOTALS: Map<string, number> = (() => {
+  const totals = new Map<string, number>()
+  const weightOf = (h: Hive) => (h.health === 'healthy' ? 1 : h.health === 'attention' ? 0.7 : 0.4) * (0.7 + (seedOf(h.id) % 60) / 100)
+  for (const loc of LOCATIONS) {
+    const hives = HIVES.filter((h) => h.locationId === loc.id)
+    const rest = hives.filter((h) => h.id !== 'BGL-042')
+    const pool = loc.yieldKg - (hives.length - rest.length) * REFERENCE_TOTAL
+    const sum = rest.reduce((a, h) => a + weightOf(h), 0)
+    for (const h of rest) totals.set(h.id, (pool * weightOf(h)) / sum)
+  }
+  totals.set('BGL-042', REFERENCE_TOTAL)
+  return totals
+})()
 
 export interface HiveDetail {
   type: string
@@ -40,8 +59,7 @@ export interface HiveDetail {
 
 export function detailOf(hive: Hive): HiveDetail {
   const reference = hive.id === 'BGL-042'
-  const wobble = (seedOf(hive.id) % 17) / 100 // 0 – 0.16
-  const factor = reference ? 1 : hive.health === 'healthy' ? 0.82 + wobble : hive.health === 'attention' ? 0.6 + wobble : 0.3 + wobble
+  const factor = (HONEY_TOTALS.get(hive.id) ?? 6) / REFERENCE_TOTAL
   const monthlyHoney = REFERENCE_MONTHLY.map((v) => round1(v * factor))
   const honeyTotal = round1(monthlyHoney.reduce((a, b) => a + b, 0))
   const lastHarvestDate = new Date(2026, 8, 12)
@@ -119,7 +137,7 @@ export function detailOf(hive: Hive): HiveDetail {
     monthlyHoney,
     honeyTotal,
     honeyDelta: byHealth.honeyDelta,
-    seasonTarget: 20,
+    seasonTarget: reference ? 20 : Math.max(4, Math.ceil(honeyTotal / 0.85)),
     lastHarvest: '12 Sep 2026',
     lastHarvestAgo: `${daysAgo} days ago`,
     harvests: HARVESTS.map((h, i) => ({ ...h, kg: monthlyHoney[monthlyHoney.length - 1 - i] })),

@@ -105,7 +105,21 @@ const FEATURED: Array<Partial<Hive> & { id: string; health: Health }> = [
   { id: 'SHR-026', health: 'critical', temp: 38.2, humidity: 69, weight: 21.4, activity: 'Low' },
 ]
 
-const OWNERS = ['Ravi Kumar', 'Lakshmi Devi', 'Field Team', 'Anita Gowda', 'Suresh Naik', 'Meena Rao']
+/** Three keepers per location: the first listed is the lead keeper. */
+export const KEEPER_NAMES: Record<string, Array<[name: string, gender: 'F' | 'M']>> = {
+  bengaluru: [['Ravi Kumar', 'M'], ['Lakshmi Devi', 'F'], ['Anita Gowda', 'F']],
+  chikkaballapur: [['Meena Rao', 'F'], ['Suresh Naik', 'M'], ['Kavitha Reddy', 'F']],
+  tumkur: [['Shobha Patil', 'F'], ['Manjunath Hegde', 'M'], ['Roopa Shetty', 'F']],
+  kolar: [['Padma Naidu', 'F'], ['Venkatesh Murthy', 'M'], ['Geetha Rani', 'F']],
+  hassan: [['Prakash Gowda', 'M'], ['Sunitha Bai', 'F'], ['Nandini Swamy', 'F']],
+  mandya: [['Savitha Kumari', 'F'], ['Girish Shetty', 'M'], ['Asha Lingaiah', 'F']],
+  ramanagara: [['Rekha Devi', 'F'], ['Naveen Raj', 'M'], ['Pushpa Latha', 'F']],
+  mysuru: [['Deepa Prasad', 'F'], ['Mahesh Urs', 'M'], ['Vani Shankar', 'F']],
+  chamarajanagar: [['Jayamma K', 'F'], ['Basavaraj M', 'M'], ['Mangala S', 'F']],
+  shivamogga: [['Sharada Hegde', 'F'], ['Kiran Bhat', 'M'], ['Uma Nayak', 'F']],
+  hosur: [['Lakshmi Priya', 'F'], ['Senthil Kumar', 'M'], ['Revathi M', 'F']],
+  hindupur: [['Sujatha Reddy', 'F'], ['Ramesh Babu', 'M'], ['Bhavani Devi', 'F']],
+}
 const TOTAL_ATTENTION = 32
 const TOTAL_CRITICAL = 18
 const TOTAL_OFFLINE = 5
@@ -172,7 +186,7 @@ function buildHives(): Hive[] {
       battery: f?.battery ?? Math.round(between(health === 'critical' ? 18 : 55, 98)),
       image: img(`hive-${(index % 8) + 1}.jpg`),
       lastUpdate: online ? `10:${String(minute).padStart(2, '0')} AM, 23 Sep 2026` : '06:41 PM, 21 Sep 2026',
-      owner: f?.owner ?? OWNERS[Math.floor(rand() * OWNERS.length)],
+      owner: f?.owner ?? KEEPER_NAMES[b.loc.id][Math.floor(rand() * 3)][0],
       apiary: f?.apiary ?? `${b.loc.name} Cluster`,
       lat: f?.lat ?? round4(b.loc.lat + between(-0.08, 0.08)),
       lng: f?.lng ?? round4(b.loc.lng + between(-0.08, 0.08)),

@@ -11,18 +11,27 @@ Clickable prototype of the Bee Hive Keep dashboard: a monitoring console for a n
 | Dashboard | `#/` |
 | Hives list | `#/hives` |
 | Map | `#/map` |
-| Hive – Overview | `#/hives/BGL-042` |
-| Hive – Brood & Colony Health | `#/hives/BGL-042/brood` |
-| Hive – Honey Production | `#/hives/BGL-042/honey` |
-| Hive – Activity & Tasks | `#/hives/BGL-042/activity` |
+| Health & Sensors | `#/health-sensors` |
+| AI Insights | `#/ai-insights` |
+| Alerts | `#/alerts` |
+| Honey Production | `#/honey-production` |
+| Tasks & Field Ops | `#/tasks` |
+| People & Communities | `#/people` |
+| Reports | `#/reports` |
+| Sustainability | `#/sustainability` |
+| Settings | `#/settings` |
+| Hive detail (nine tabs) | `#/hives/BGL-042` |
 
-Every one of the 248 hives opens its own detail page. Screens that have no design yet show a "coming soon" page.
+Every one of the 248 hives opens its own detail page with nine tabs: Overview, Live Data, Brood & Colony Health, Honey Production, Environment, Activity & Tasks, History, AI Insights and Notes.
+
+Six screens follow the original design mockups (Dashboard, Hives list, and the Overview, Brood, Honey and Activity tabs). The others were designed to match them.
 
 ## Things to know
 
 - **All data is mock data.** It lives in `src/data/`. There is no backend.
 - **The date is fixed** at 23 Sep 2026, 10:24 AM so that every timestamp in the mock data stays consistent.
-- **Tasks you add are kept only until the page is reloaded.** Add Hive, Log Activity and Upload Photos show their forms but save nothing.
+- **Changes are kept only until the page is reloaded.** This covers tasks, alert status and settings. Add Hive, Add Keeper, Log Activity and Upload Photos show their forms but save nothing.
+- **Reports download real CSV files** built from the mock data. PDF reports are not generated.
 - **"Live" camera views are still photos.**
 
 ## Run it on your computer
