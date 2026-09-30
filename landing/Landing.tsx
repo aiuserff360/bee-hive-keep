@@ -37,6 +37,7 @@ import screenAlerts from './assets/screen-alerts.jpg'
 import screenDashboard from './assets/screen-dashboard.jpg'
 import screenHoney from './assets/screen-honey.jpg'
 import screenTasks from './assets/screen-tasks.jpg'
+import SmartHive from './SmartHive'
 
 /**
  * Address that demo requests are sent to.
@@ -95,6 +96,7 @@ function PrimaryLink({ href, children, className }: { href: string; children: Re
 
 const LINKS = [
   { href: '#how', label: 'How it works' },
+  { href: '#smart-hive', label: 'The Smart Hive' },
   { href: '#features', label: 'Features' },
   { href: '#who', label: 'Who it is for' },
   { href: '#faq', label: 'Questions' },
@@ -782,6 +784,7 @@ export default function Landing() {
         <Signals />
         <Problem />
         <HowItWorks />
+        <SmartHive />
         <Features />
         <Audience />
         <Mission />

@@ -148,3 +148,33 @@ details > summary::-webkit-details-marker {
 details[open] .faq-icon {
   transform: rotate(45deg);
 }
+
+/* Paper sheet for the technical drawing */
+.blueprint {
+  background-color: #f6f2e8;
+  background-image:
+    linear-gradient(rgb(74 90 112 / 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(74 90 112 / 0.09) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fade-in {
+  animation: fade-in 0.45s ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none;
+  }
+}

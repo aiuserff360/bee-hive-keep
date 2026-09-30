@@ -34,7 +34,8 @@ Six screens follow the original design mockups (Dashboard, Hives list, and the O
 The customer-facing landing page lives in the `landing/` folder and is built together with the product.
 
 - `landing/Landing.tsx` holds all the text and sections.
-- `landing/assets/` holds the product screenshots shown on the page.
+- `landing/SmartHive.tsx` is the "Smart Hive" section, built from the HarvestWare Digital Hive Ecosystem deck.
+- `landing/assets/` holds the product screenshots shown on the page, plus the Smart Hive schematic cropped from that deck.
 - **Before sharing the page with customers, set the real contact address.** Change `CONTACT_EMAIL` at the top of `landing/Landing.tsx`. It is a placeholder (`hello@beehivekeep.example`) until then.
 - The "Request a demo" form has no server behind it. It opens the visitor's email app with the request filled in.
 - The landing page does not link to the product demo. The two are kept separate on purpose.
